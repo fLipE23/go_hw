@@ -2,7 +2,6 @@ package hw02_unpack_string
 
 import (
 	"errors"
-	"fmt"
 	"unicode"
 )
 
@@ -10,38 +9,32 @@ var ErrInvalidString = errors.New("invalid string")
 
 func Unpack(str string) (string, error) {
 
-	fmt.Println(len([]rune(str)))
-	fmt.Println(str)
-
 	var result string
-
 	var prev rune
+	prevExists := false
 
-	for i, s := range str {
-
-		fmt.Println("i: ", i, "s: ", s, string(s), unicode.IsDigit(s), " ", prev, result)
-
+	for _, s := range str {
 		if unicode.IsDigit(s) {
-
-			for j := 0; j < int(s-'0'); j++ {
-				result = result + string(prev)
-
-				fmt.Println("prev: ", prev)
+			if prevExists {
+				for j := 0; j < int(s-'0'); j++ {
+					result = result + string(prev)
+				}
+				prevExists = false
 			}
-
 		} else {
 			if !unicode.IsDigit(prev) {
-				result = result + string(prev)
-			}
-			if i == len(str)-1 {
-				result += string(s)
+				if prevExists {
+					result = result + string(prev)
+				}
+				prev = s
+				prevExists = true
 			}
 		}
-
-		prev = s
 	}
 
-	fmt.Println("result: ", result)
+	if prevExists {
+		result = result + string(prev)
+	}
 
 	return result, nil
 }
