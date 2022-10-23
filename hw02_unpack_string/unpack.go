@@ -34,6 +34,7 @@ func Unpack(str string) (string, error) {
 		}
 	}
 
+	// the last symbol
 	if prevExists {
 		result = result + string(prev)
 	}
