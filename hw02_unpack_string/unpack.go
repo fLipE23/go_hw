@@ -20,6 +20,8 @@ func Unpack(str string) (string, error) {
 					result = result + string(prev)
 				}
 				prevExists = false
+			} else {
+				return "", ErrInvalidString
 			}
 		} else {
 			if !unicode.IsDigit(prev) {
