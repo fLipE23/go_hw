@@ -16,7 +16,7 @@ func Unpack(str string) (string, error) {
 		if unicode.IsDigit(s) {
 			if prevExists {
 				for j := 0; j < int(s-'0'); j++ {
-					result = result + string(prev)
+					result += string(prev)
 				}
 				prevExists = false
 			} else {
@@ -25,7 +25,7 @@ func Unpack(str string) (string, error) {
 		} else {
 			if !unicode.IsDigit(prev) {
 				if prevExists {
-					result = result + string(prev)
+					result += string(prev)
 				}
 				prev = s
 				prevExists = true
@@ -35,7 +35,7 @@ func Unpack(str string) (string, error) {
 
 	// the last symbol
 	if prevExists {
-		result = result + string(prev)
+		result += string(prev)
 	}
 
 	return result, nil
