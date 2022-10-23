@@ -18,20 +18,16 @@ func Unpack(str string) (string, error) {
 		}
 
 		if unicode.IsDigit(s) {
-			if prevExists {
-				for j := 0; j < int(s-'0'); j++ {
-					result += string(prev)
-				}
-				prevExists = false
+			for j := 0; j < int(s-'0'); j++ {
+				result += string(prev)
 			}
+			prevExists = false
 		} else {
-			if !unicode.IsDigit(prev) {
-				if prevExists {
-					result += string(prev)
-				}
-				prev = s
-				prevExists = true
+			if prevExists {
+				result += string(prev)
 			}
+			prev = s
+			prevExists = true
 		}
 	}
 
