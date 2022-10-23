@@ -13,14 +13,16 @@ func Unpack(str string) (string, error) {
 	prevExists := false
 
 	for _, s := range str {
+		if unicode.IsDigit(s) && !prevExists {
+			return "", ErrInvalidString
+		}
+
 		if unicode.IsDigit(s) {
 			if prevExists {
 				for j := 0; j < int(s-'0'); j++ {
 					result += string(prev)
 				}
 				prevExists = false
-			} else {
-				return "", ErrInvalidString
 			}
 		} else {
 			if !unicode.IsDigit(prev) {
