@@ -19,7 +19,7 @@ func Unpack(str string) (string, error) {
 		if isDigit {
 			if prevExists {
 				for j := 0; j < int(s-'0'); j++ {
-					result = result + string(prev)
+					result += string(prev)
 				}
 				prevExists = false
 
@@ -29,7 +29,7 @@ func Unpack(str string) (string, error) {
 		} else {
 			if !prevIsDigit {
 				if prevExists {
-					result = result + string(prev)
+					result += string(prev)
 				}
 				prev = s
 				prevExists = true
@@ -39,7 +39,7 @@ func Unpack(str string) (string, error) {
 
 	// the last symbol
 	if prevExists {
-		result = result + string(prev)
+		result += string(prev)
 	}
 
 	return result, nil
