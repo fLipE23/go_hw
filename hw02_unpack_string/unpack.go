@@ -7,7 +7,6 @@ import (
 var ErrInvalidString = errors.New("invalid string")
 
 func Unpack(str string) (string, error) {
-
 	var result string
 	var prev rune
 	prevExists := false
