@@ -9,31 +9,30 @@ var ErrInvalidString = errors.New("invalid string")
 func Unpack(str string) (string, error) {
 	var result string
 	var prev rune
+
 	prevExists := false
 
 	for _, s := range str {
 
-		isDigit := (s >= 48 && s <= 57)
-		prevIsDigit := (prev >= 48 && prev <= 57)
+		isDigit := s >= 48 && s <= 57
+		prevIsDigit := prev >= 48 && prev <= 57
+
+		if isDigit && !prevExists {
+			return "", ErrInvalidString
+		}
 
 		if isDigit {
-			if prevExists {
-				for j := 0; j < int(s-'0'); j++ {
-					result += string(prev)
-				}
-				prevExists = false
+			for j := 0; j < int(s-'0'); j++ {
+				result += string(prev)
+			}
+			prevExists = false
 
-			} else {
-				return "", ErrInvalidString
-			}
 		} else {
-			if !prevIsDigit {
-				if prevExists {
-					result += string(prev)
-				}
-				prev = s
-				prevExists = true
+			if prevExists && !prevIsDigit {
+				result += string(prev)
 			}
+			prev = s
+			prevExists = true
 		}
 	}
 
