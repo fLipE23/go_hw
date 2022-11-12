@@ -13,7 +13,6 @@ func Unpack(str string) (string, error) {
 	prevExists := false
 
 	for _, s := range str {
-
 		isDigit := s >= 48 && s <= 57
 		prevIsDigit := prev >= 48 && prev <= 57
 
@@ -26,7 +25,6 @@ func Unpack(str string) (string, error) {
 				result += string(prev)
 			}
 			prevExists = false
-
 		} else {
 			if prevExists && !prevIsDigit {
 				result += string(prev)
