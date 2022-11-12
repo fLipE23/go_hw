@@ -7,6 +7,25 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestUnusualStrings(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{input: "x٣a٢q٥t2", expected: "x٣a٢q٥tt"},
+		{input: "a১b২c৩", expected: "a১b২c৩"},
+	}
+
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.input, func(t *testing.T) {
+			result, err := Unpack(tc.input)
+			require.NoError(t, err)
+			require.Equal(t, tc.expected, result)
+		})
+	}
+}
+
 func TestUnpack(t *testing.T) {
 	tests := []struct {
 		input    string
