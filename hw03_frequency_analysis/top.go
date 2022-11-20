@@ -8,7 +8,7 @@ import (
 )
 
 func Top10(input string) []string {
-	regex, _ := regexp.Compile(`[^A-Za-z0-9А-Яа-я]`)
+	regex := regexp.MustCompile(`[^A-Za-z0-9А-Яа-я]`)
 	wordsCount := make(map[string]int)
 
 	arrStrings := strings.Split(input, "\n")
@@ -25,8 +25,7 @@ func Top10(input string) []string {
 				continue
 			}
 
-			wordsCount[word] = wordsCount[word] + 1
-
+			wordsCount[word]++
 		}
 	}
 
