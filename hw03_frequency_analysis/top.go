@@ -7,8 +7,7 @@ import (
 	"strings"
 )
 
-// []string
-func Top10(input string) map[string]int {
+func Top10(input string) []string {
 	regex, _ := regexp.Compile(`[^A-Za-z0-9А-Яа-я]`)
 	wordsCount := make(map[string]int)
 
@@ -33,7 +32,7 @@ func Top10(input string) map[string]int {
 
 	keys := make([]string, 0, len(wordsCount))
 
-	for k, _ := range wordsCount {
+	for k := range wordsCount {
 		keys = append(keys, k)
 	}
 
@@ -45,9 +44,10 @@ func Top10(input string) map[string]int {
 		return wordsCount[keys[i]] > wordsCount[keys[j]]
 	})
 
-	// todo return first 10
+	if len(keys) > 10 {
+		fmt.Printf("%#v\n", keys[:10])
+		return keys[:10]
+	}
 
-	fmt.Printf("%#v\n", keys)
-
-	return wordsCount
+	return keys
 }
